@@ -1,0 +1,193 @@
+selector {
+    property: value;
+    }
+    
+    /*HTML Document Sections*/
+    
+    * {
+        box-sizing: border-box;
+    }
+    
+    html {
+        background-color: #75787B;
+    }
+    
+    
+    head {
+        background-color: #0C2340;/*Auburn Blue*/
+    }
+    
+    body {
+        background-color: #E87722;/*Auburn Orange*/
+        margin: 0.25;
+    }
+    
+    
+    
+    footer {
+        
+        background-color: #0C2340;
+        color: #FFFFFF; /*White*/
+    }
+    
+    /*HTML Elements*/
+    
+    
+    #motorCalculations {
+    margin-left: 2em;
+    }
+    
+    h3 {
+    background-color: #660000; /*Mississippi State Maroon*/
+    color: #CCCCCC; /*grey*/
+    }
+    
+    h2 {
+    background-color: #660000; /*Mississippi State Maroon*/
+    color: #CCCCCC; /*grey*/
+    }
+    
+    th {
+      text-align: left;
+      background-color: #75787B;
+    }
+    
+    /* ID selectors */
+    
+    #inform {
+    text-color: blue;
+    }
+    
+    #lbl01 {
+        /*background-color: #0021A5;*/
+    }
+    
+    
+    /*class selectors */
+    
+    .my-header {
+       background-color: #75787B; /*dark grey*/
+       width: 70%;
+       margin: 40 px auto 0 px; 
+    }
+    
+    .my-header h3 {
+        float: left;
+        display: inline-block;
+        color: green;
+        font-size: 1.1 em;
+    }
+    
+    
+    .my-header .nav ul {
+        float: right;
+        display: inline-block;
+        color: green;
+        list-style: none;
+    }
+    
+    .my-header .nav ul li {
+        padding: 0px 15 px;
+        float: left;
+    }
+    
+    .my-header .nav ul a {
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: .8em;
+        color: #75787B;
+    }
+    
+    
+    
+    
+    .articleSteps {
+        font-weight: bold;
+        
+    }
+    
+    
+    .inform {
+        color: #0021A5;
+    }
+    
+    .color {
+        text-weight: italic;
+        background-color: #fa4616;
+    }
+    
+    
+    
+    .steps {
+        border-block: 1;
+    }
+    
+    .motorSelections .nav ul {
+        float: left;
+        display: inline-block;
+        color: black;
+        list-style: none;
+    }
+    
+    .motorSelections .nav ul li {
+        padding: 0px 15 px;
+        float: left;
+    }
+    
+    .motorSelections .nav ul a {
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: .8em;
+        color: #75787B;
+    }
+    
+    
+    .protectionReqs .nav ul {
+        float: left;
+        display: inline-block;
+        color: black;
+        list-style: none;
+    }
+    
+    .protectionReqs .nav ul li {
+        padding: 0px 15 px;
+        float: left;
+    }
+    
+    .protectionReqs .nav ul a {
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: .8em;
+        color: #75787B;
+    }
+    /*#FLC{
+        position:relative;
+        background:yellow;
+        width:100%;
+        min-width:100px;
+    }
+    .overloadpro{
+        position:absolute;
+        top:0px;
+        left:0px;
+        height:50px;
+        width:100px;
+        background:red;
+    }
+    #brConSize{
+        height:50px;
+        width:100px;
+        background:blue;
+        margin:0px auto;
+    }
+    .rightDIV{
+        position:absolute;
+        top:0px;
+        right:0px;
+        height:50px;
+        width:100px;
+        background:green;
+    } */   

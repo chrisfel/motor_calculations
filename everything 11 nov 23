@@ -1,0 +1,794 @@
+
+
+
+------------HTML--------------
+
+<!Doctype html>
+<html lang="en">
+  <head>
+   <title>Document Title</title>
+         <meta charset="utf-8"/>
+         <!--<meta name="viewport" content="width=device-width, initial-scaled=1.0">-->
+         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+      <h2>Motor Calculations for Sizing Conductors and Overcurrent Protection</h2>
+		<!--<script defer src="header.js"></script>-->
+		<!--<script src="motorCalculations.js">Script File</script>-->
+        <link rel="stylesheet" href="styles.css" media="screen">
+         
+  </head>
+
+ <body>
+	 
+    <script defer src="js/header.js"></script>
+	<div id="header" placeholder="Header"></div>
+	<script defer src="js/branchCircuit.js"></script>
+	<script defer src="js/feederCircuit.js"></script>
+		
+		<h2>Document Body</h2>
+		
+<div id="motorCalculations"></div>
+
+<div id="branchCircuitProtection" placeholder="Branch Circuit Protection"></div>
+
+<div id="feederCircuitProtection" placeholder="Feeder Circuit Protection"><p>protectionReqs</p></div>
+</br></br>
+
+
+  
+</div> <!--End id: "motorCalculations"-->
+
+	  	  <script src="js/sumMotorFlc.js">Script File</script>
+		  <script src="js/branchMotorFlc.js">Script File</script>
+	 
+ </body>
+
+ <div id="footer">
+	 <script defer src="js/footer.js"></script>
+	  <h5>Document Footer</h5>
+ </div>
+
+</html>
+
+
+
+-----------------Header------------
+
+
+
+
+header.innerHTML = `
+<header class="my-header">
+	
+		<nav class="nav">
+		<ul>
+			<li><a "href="#">about us</a></li>
+			<li><a "href="#">contact</a></li>
+			<li><a "href="#">blog</a></li>
+		</ul>
+		</nav>
+	<p>See my header?</p>	
+</header>
+`;
+
+
+
+------------------footer--------------------
+
+
+footer.innerHTML = `
+
+<footer class="my-footer">
+	<p>See my footer?</p>	
+</footer>
+
+`;
+
+
+------------------------branch Circuit Protection---------
+
+
+branchCircuitProtection.innerHTML =
+`<selection class="motorSelections">
+
+	<table>
+			<tbody>
+			<tr>
+			<th colspan="6"><label class="articleSteps">Enter Specifications of Largest Motor: </label></th>
+			</tr>
+			<tr>
+			<td><label class="input">Input flc: </label></td>
+			<td><input type="text" id="txt1" class ="stepI" placeholder="enter flc" value="" maxlength="5" size="4"></td>
+			<td><label class="input"> Select motor overload rating percentage: </label></td>
+			<td><select id="selectOverLoad">
+					<option value="115">115</option>
+					<option value="125">125</option>
+					<option value="130">130</option>
+					<option value="140">140</option>      
+					</select> 
+				<label id="lbl20">% </label></li></td>
+			<td><label class="input">Pick percentage of motor type per Table 430.52!</label></td>
+			<td><select id="selectOverCurrent">
+					<option value="150">150</option>
+					<option value="175">175</option>
+					<option value="250">250</option>
+					<option value="300">300</option>
+					<option value="800">800</option> 
+					<option value="1100">1100</option>    
+					</select>
+				<label class="input">%</label></li></td>
+			</tr>
+			
+			</tbody>
+	 </table>
+	 </br>
+	 <label class="input">Calculate:</label>
+	 <button onclick="branchLoadCurrent()" id="btn1">Branch Circuit</button>
+			<!-- DivTable.com -->
+
+	</br></br>
+	<table>
+			<tbody>
+			<tr>
+			<th colspan="2"><label class="articleSteps">Branch circuit protection requirements</label></th>
+			</tr>
+			<tr>
+			<td><label class="input">FLC entered: </label></td>
+			<td><label id="flc_entered" class="color" placeholder="0.00"></label>
+			<label class="inform">amps (full load current)</label></td>
+			
+			</tr>
+			<tr>
+			<td><label class="input">Overload Protection: </label></td>
+			<td><label id="ovrldpr" class="color"></label><label class="inform">amp Heater</label></td>
+			</tr>
+			<tr>
+			<td><label class="input">Branch overcurrent device: </label><label id="brOvDe" class="color"></label></td>
+			<td><label class="inform">amps</label><label class="input" > (Article 240.6 allows to round up)</label></td>
+			</tr>
+			<tr>
+			<td><label id=" "class="input">Branch circuit breaker size: </label></td>
+			<td><label id="branchCircuit" class="color"></label><label class="inform"> Amp Breaker</label></td>
+			</tr>
+			<tr>
+			<td><label class="input">Branch circuit conductor size: </label></td>
+			<td><label id="brCoSz" class="color"></label><label class="inform">amps</label></td>
+			</tr>
+			</tbody>
+	</table>
+	<!-- DivTable.com -->
+	</br></br>
+	 
+</selection>`;
+
+
+-------------------------------feeder circuits-------------------------------
+
+
+
+feederCircuitProtection.innerHTML =
+
+
+`<selection class="motorProtection">
+	
+				
+				<!--<label id=" "class="input">FLC of motor II: </label>
+				<label id="flcMii" class="color"></label><label class="inform"> Amps</label>
+				</br>
+				
+				<label id=" "class="input">FLC of motor III: </label>
+				<label id="flcMiii" class="color"></label><label class="inform"> Amps</label>
+				</br>-->
+				
+				
+				<!--//begin table-->
+				<table>
+						<tbody>
+						<tr>
+						<th colspan="2"><label class="articleSteps">Enter FLC of additional motors</label></th>
+						</tr>
+						<tr>
+						<td><label class="input">Circuit Breaker Motor I: </label></td>
+						<td><input type="text" id="txt0" class ="stepI" placeholder="enter flc" value="" maxlength="5" size="4"></td>
+						</tr>
+						<tr>
+						<td><label class="input">FLC Motor I:  </label></td>
+						<td><input type="text" id="txtflcI" class ="stepI" placeholder="enter flc" value="" maxlength="5" size="4"></td>
+						</tr>
+						<tr>
+						<td><label class="input">FLC Motor II:  </label></td>
+						<td><input type="text" id="txtflcII" class ="stepI" placeholder="enter flc" value="" maxlength="5" size="4"></td>
+						</tr>
+						<tr>
+						<td><label class="input">FLC Motor III: </label></td>
+						<td><input type="text" id="txtflcIII" class ="stepI" placeholder="enter flc" value="" maxlength="5" size="4"></td>
+						</tr>
+						<tr>
+						
+						</tr>
+						</tbody>
+						</table>
+						<!-- DivTable.com -->	
+				
+				</br></br>
+				<label class="input">Calculate:</label>
+				<button onclick="fullLoadCurrent()" id="btn2">Feeder Circuit</button>
+				</br></br>	
+				
+			
+				</br></br>
+				<table>
+						<tbody>
+						<tr>
+						<th colspan="2"><label class="articleSteps">Feeder circuit protection requirements: </label></th>
+						</tr>
+						<tr>
+						<td><label id=" " class="input">Feeder overcurrent device: </label></td>
+						<td><label id="totalFlc" class="color"></label><label class="inform">amps</label><label class="input" > (Round Down)</label></td>
+						</tr>
+						<tr>
+						<td><label id=" "class="input">Feeder circuit breaker size: </label></td>
+						<td><label id="fdCkBr" class="color"></label><label class="inform"> Amp Breaker</label> </td>
+						</tr>
+						<tr>
+						<td><label class="input">Feeder circuit conductor size: </label></td>
+						<td><label id="feederCircuit" class="color"></label><label class="inform">amps</label></td>
+						</tr>
+						</tbody>
+						</table>
+						<!-- DivTable.com -->
+					</br>
+				
+				<label id="brMotori" class="color"></label>
+							
+</selection>`;
+
+
+
+-----------------------css---------------------------------
+
+
+selector {
+property: value;
+}
+
+/*HTML Document Sections*/
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: #75787B;
+}
+
+
+head {
+    background-color: #0C2340;/*Auburn Blue*/
+}
+
+body {
+    background-color: #E87722;/*Auburn Orange*/
+    margin: 0.25;
+}
+
+
+
+footer {
+    
+    background-color: #0C2340;
+    color: #FFFFFF; /*White*/
+}
+
+/*HTML Elements*/
+
+
+#motorCalculations {
+margin-left: 2em;
+}
+
+h3 {
+background-color: #660000; /*Mississippi State Maroon*/
+color: #CCCCCC; /*grey*/
+}
+
+h2 {
+background-color: #660000; /*Mississippi State Maroon*/
+color: #CCCCCC; /*grey*/
+}
+
+th {
+  text-align: left;
+  background-color: #75787B;
+}
+
+/* ID selectors */
+
+#inform {
+text-color: blue;
+}
+
+#lbl01 {
+    /*background-color: #0021A5;*/
+}
+
+
+/*class selectors */
+
+.my-header {
+   background-color: #75787B; /*dark grey*/
+   width: 70%;
+   margin: 40 px auto 0 px; 
+}
+
+.my-header h3 {
+    float: left;
+    display: inline-block;
+    color: green;
+    font-size: 1.1 em;
+}
+
+
+.my-header .nav ul {
+    float: right;
+    display: inline-block;
+    color: green;
+    list-style: none;
+}
+
+.my-header .nav ul li {
+    padding: 0px 15 px;
+    float: left;
+}
+
+.my-header .nav ul a {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: .8em;
+    color: #75787B;
+}
+
+
+
+
+.articleSteps {
+    font-weight: bold;
+    
+}
+
+
+.inform {
+    color: #0021A5;
+}
+
+.color {
+    text-weight: italic;
+    background-color: #fa4616;
+}
+
+
+
+.steps {
+    border-block: 1;
+}
+
+.motorSelections .nav ul {
+    float: left;
+    display: inline-block;
+    color: black;
+    list-style: none;
+}
+
+.motorSelections .nav ul li {
+    padding: 0px 15 px;
+    float: left;
+}
+
+.motorSelections .nav ul a {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: .8em;
+    color: #75787B;
+}
+
+
+.protectionReqs .nav ul {
+    float: left;
+    display: inline-block;
+    color: black;
+    list-style: none;
+}
+
+.protectionReqs .nav ul li {
+    padding: 0px 15 px;
+    float: left;
+}
+
+.protectionReqs .nav ul a {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: .8em;
+    color: #75787B;
+}
+/*#FLC{
+    position:relative;
+    background:yellow;
+    width:100%;
+    min-width:100px;
+}
+.overloadpro{
+    position:absolute;
+    top:0px;
+    left:0px;
+    height:50px;
+    width:100px;
+    background:red;
+}
+#brConSize{
+    height:50px;
+    width:100px;
+    background:blue;
+    margin:0px auto;
+}
+.rightDIV{
+    position:absolute;
+    top:0px;
+    right:0px;
+    height:50px;
+    width:100px;
+    background:green;
+} */   
+
+
+
+
+-----------------------------javascript--------------------------
+
+
+          -------branchMotorFlc.js-------------
+
+
+function branchLoadCurrent() {
+	
+	let inFlc = document.getElementById("txt1").value;
+	let overLoadRating = document.getElementById("selectOverLoad").value;
+	let overCurrentRating = document.getElementById("selectOverCurrent").value;
+	let bDevSize = Number(inFlc).toFixed(2) * [Number(overCurrentRating).toFixed(2)]/100;
+	let brCirConSize = Number(inFlc).toFixed(2) * 1.25;
+	
+	let cirBrk = [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 90, 100, 110, 125, 150, 175,
+              200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800, 1000, 1200, 1600, 2000, 
+              2500, 3000, 4000, 5000, 6000];
+	
+	function innerTest() {
+	//inFlc = document.getElementById("txt1").value;
+	//inFlc = Number(inFlc).toFixed(2);	
+	document.getElementById("txt1").value = Number(inFlc).toFixed(2);	
+	document.getElementById("flc_entered").innerHTML = Number(inFlc).toFixed(2);
+	document.getElementById("ovrldpr").innerHTML = Number(inFlc).toFixed(2) * [Number(overLoadRating).toFixed(2)]/100;
+	document.getElementById("brOvDe").innerHTML = bDevSize;
+	document.getElementById("brCoSz").innerHTML = brCirConSize;
+	
+	//document.getElementById("brOvDe").innerHTML = Number(bDevSize).toFixed(2);
+	
+	if (bDevSize > cirBrk[0] && bDevSize <= cirBrk[1])
+		document.getElementById("branchCircuit").innerHTML = cirBrk[1]; //20;
+		
+		else if (bDevSize > cirBrk[1] && bDevSize <= cirBrk[2])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[2];//25;
+
+		else if (bDevSize > cirBrk[2] && bDevSize <= cirBrk[3])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[3];//30;
+
+		else if (bDevSize > cirBrk[3] && bDevSize <= cirBrk[4])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[4];//35;
+
+		else if (bDevSize > cirBrk[4] && bDevSize <= cirBrk[5])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[5];//40;
+
+		else if (bDevSize > cirBrk[5] && bDevSize <= cirBrk[6])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[6];//45;
+
+		else if (bDevSize > cirBrk[6] && bDevSize <= cirBrk[7])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[7];//50;
+
+		else if (bDevSize > cirBrk[7] && bDevSize <= cirBrk[8])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[8];//55;
+
+		else if (bDevSize > cirBrk[8] && bDevSize <= cirBrk[9])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[9];//60;
+
+		else if (bDevSize > cirBrk[9] && bDevSize <= cirBrk[10])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[10];//70;
+
+		else if (bDevSize > cirBrk[10] && bDevSize <= cirBrk[11])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[11];//80;
+
+		else if (bDevSize > cirBrk[11] && bDevSize <= cirBrk[12])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[12];//90;
+
+		else if (bDevSize > cirBrk[12] && bDevSize <= cirBrk[13])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[13];//100;
+
+		else if (bDevSize > cirBrk[13] && bDevSize <= cirBrk[14])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[14];//110;
+
+		else if (bDevSize > cirBrk[14] && bDevSize <= cirBrk[15])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[15];//125;
+
+		else if (bDevSize > cirBrk[15] && bDevSize <= cirBrk[16])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[16];//150;
+
+		else if (bDevSize > cirBrk[16] && bDevSize <= cirBrk[17])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[17];//175
+
+		else if (bDevSize > cirBrk[17] && bDevSize <= cirBrk[18])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[18];//200;
+
+		else if (bDevSize > cirBrk[18] && bDevSize <= cirBrk[19])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[19];//225;
+
+		else if (bDevSize > cirBrk[19] && bDevSize <= cirBrk[20])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[20];//250;
+
+		else if (bDevSize > cirBrk[20] && bDevSize <= cirBrk[21])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[21];//300;
+
+		else if (bDevSize > cirBrk[21] && bDevSize <= cirBrk[22])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[22];//350;
+
+		else if (bDevSize > cirBrk[22] && bDevSize <= cirBrk[23])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[23];//400;
+
+		else if (bDevSize > cirBrk[23] && bDevSize <= cirBrk[24])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[24];//450;
+
+		else if (bDevSize > cirBrk[24] && bDevSize <= cirBrk[25])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[25];//500;
+
+		else if (bDevSize > cirBrk[25] && bDevSize <= cirBrk[26])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[26];//600;
+
+		else if (bDevSize > cirBrk[26] && bDevSize <= cirBrk[27])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[27];//700;
+
+		else if (bDevSize > cirBrk[27] && bDevSize <= cirBrk[28])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[28];//800;
+
+		else if (bDevSize > cirBrk[28] && bDevSize <= cirBrk[29])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[29];//1000;
+
+		else if (bDevSize > cirBrk[29] && bDevSize <= cirBrk[30])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[30];//1200;
+
+		else if (bDevSize > cirBrk[30] && bDevSize <= cirBrk[31])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[31];//1600;
+
+		else if (bDevSize > cirBrk[31] && bDevSize <= cirBrk[32])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[32];//2000;
+
+		else if (bDevSize > cirBrk[32] && bDevSize <= cirBrk[33])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[33];//2500;
+
+		else if (bDevSize > cirBrk[33] && bDevSize <= cirBrk[34])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[34];//3000;
+
+		else if (bDevSize > cirBrk[34] && bDevSize <= cirBrk[35])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[35];//4000;
+
+		else if (bDevSize > cirBrk[35] && bDevSize <= cirBrk[36])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[36];//5000;
+
+		else if (bDevSize > cirBrk[36] && bDevSize <= cirBrk[37])
+			document.getElementById("branchCircuit").innerHTML = cirBrk[37];//6000;
+
+		else {
+			document.getElementById(id="branchCircuit").innerHTML = cirBrk[0];
+	
+		}
+		
+			
+	 }
+	 
+	innerTest();
+	
+	let z = "Oh no, a bug!";
+	document.getElementById("brMotori").innerHTML = z;
+	
+}	
+branchLoadCurrent();
+
+
+/*let overCurrentRating = document.getElementById("selectOverCurrent").value; 
+	//document.getElementById("lbl18").innerHTML = "Pick percentage of motor type per Table 430.52!";
+	let input = Number(document.getElementById("txt1").value).toFixed(2);
+	let bDevSize = input * overCurrentRating;
+	let bDevSize = bDevSize/100;
+	let bDevSize = Number(bDevSize).toFixed(2)
+	let document.getElementById("brOvDe").innerHTML = bDevSize;
+	
+	let z = document.getElementById("brOvDe").value;
+    let document.getElementById("test").innerHTML = z;*/
+
+
+
+
+    ---------------------sumMotorFlc.js---------------------
+    
+    
+    
+function fullLoadCurrent() {
+	
+	let z = document.getElementById("txt0").value; //z = circuit breaker for motor 1
+	let x = document.getElementById("txtflcII").value; //x = Motor II flc
+	let y = document.getElementById("txtflcIII").value; //y = Motor III flc
+	let mi = document.getElementById("txtflcI").value; //a = Motor I flc
+	let fConSize; // feeder conductor size
+	let larMotorFLC;
+	let totalMotorFLC; 
+	
+	let cirBrk = [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 90, 100, 110, 125, 150, 175,
+              200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800, 1000, 1200, 1600, 2000, 
+              2500, 3000, 4000, 5000, 6000];
+	
+	function innerTest() {
+	
+	//test for largest motor code
+
+	if (Number(mi) < Number(x)) {
+		window.alert("Motor 1 has to be the largest motor!");
+
+	} else if (Number(mi) < Number(y)) {
+		window.alert("Motor 1 has to be the largest motor");
+
+	} else {
+		larMotorFLC = mi * 1.25;
+		totalMotorFLC = Number(larMotorFLC) + Number(x) + Number(y);
+		totalMotorFLC = Number(totalMotorFLC).toFixed(2);
+		document.getElementById(id="feederCircuit").innerHTML = Number(totalMotorFLC).toFixed(2);
+	}
+
+	//end of test largest motor code
+		
+	/*document.getElementById("flcMii").innerHTML = x;
+	document.getElementById("flcMiii").innerHTML = y;
+	document.getElementById("cKbrMotorI").innerHTML = z;
+	document.getElementById("flcMi").innerHTML = mi;*/
+	
+	xyz = Number(x) + Number(y) + Number(z);
+	fConSize = (Number(mi).toFixed(2) * 1.25) + Number(x) + Number(y);
+	
+	document.getElementById("totalFlc").innerHTML = Number(xyz).toFixed(2);
+	
+	if (xyz > 15 && xyz < cirBrk[1])
+		document.getElementById("fdCkBr").innerHTML = cirBrk[1]; //20;
+		
+		else if (xyz > cirBrk[1] && xyz >= cirBrk[2])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[2];//25;
+
+		else if (xyz > cirBrk[2] && xyz >= cirBrk[3])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[3];//30;
+
+		else if (xyz > cirBrk[3] && xyz >= cirBrk[4])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[4];//35;
+
+		else if (xyz > cirBrk[4] && xyz >= cirBrk[5])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[5];//40;
+
+		else if (xyz > cirBrk[5] && xyz >= cirBrk[6])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[6];//45;
+
+		else if (xyz > cirBrk[6] && xyz >= cirBrk[7])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[7];//50;
+
+		else if (xyz > cirBrk[7] && xyz >= cirBrk[8])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[8];//55;
+
+		else if (xyz > cirBrk[8] && xyz >= cirBrk[9])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[9];//60;
+
+		else if (xyz > cirBrk[9] && xyz >= cirBrk[10])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[10];//70;
+
+		else if (xyz > cirBrk[10] && xyz >= cirBrk[11])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[11];//80;
+
+		else if (xyz > cirBrk[11] && xyz >= cirBrk[12])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[12];//90;
+
+		else if (xyz > cirBrk[12] && xyz >= cirBrk[13])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[13];//100;
+
+		else if (xyz > cirBrk[13] && xyz >= cirBrk[14])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[14];//110;
+
+		else if (xyz > cirBrk[14] && xyz >= cirBrk[15])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[15];//125;
+
+		else if (xyz > cirBrk[15] && xyz >= cirBrk[16])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[16];//150;
+
+		else if (xyz > cirBrk[16] && xyz >= cirBrk[17])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[17];//175
+
+		else if (xyz > cirBrk[17] && xyz >= cirBrk[18])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[18];//200;
+
+		else if (xyz > cirBrk[18] && xyz >= cirBrk[19])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[19];//225;
+
+		else if (xyz > cirBrk[19] && xyz >= cirBrk[20])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[20];//250;
+
+		else if (xyz > cirBrk[20] && xyz >= cirBrk[21])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[21];//300;
+
+		else if (xyz > cirBrk[21] && xyz >= cirBrk[22])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[22];//350;
+
+		else if (xyz > cirBrk[22] && xyz >= cirBrk[23])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[23];//400;
+
+		else if (xyz > cirBrk[23] && xyz >= cirBrk[24])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[24];//450;
+
+		else if (xyz > cirBrk[24] && xyz >=cirBrk[25])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[25];//500;
+
+		else if (xyz > cirBrk[25] && xyz >= cirBrk[26])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[26];//600;
+
+		else if (xyz > cirBrk[26] && xyz >= cirBrk[27])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[27];//700;
+
+		else if (xyz > cirBrk[27] && xyz >= cirBrk[28])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[28];//800;
+
+		else if (xyz > cirBrk[28] && xyz >= cirBrk[29])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[29];//1000;
+
+		else if (xyz > cirBrk[28] && xyz >= cirBrk[30])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[30];//1200;
+
+		else if (xyz > cirBrk[30] && xyz >= cirBrk[31])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[31];//1600;
+
+		else if (xyz > cirBrk[31] && xyz >= cirBrk[32])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[32];//2000;
+
+		else if (xyz > cirBrk[32] && xyz >= cirBrk[33])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[33];//2500;
+
+		else if (xyz > cirBrk[33] && xyz >= cirBrk[34])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[34];//3000;
+
+		else if (xyz > cirBrk[34] && xyz >= cirBrk[35])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[35];//4000;
+
+		else if (xyz > cirBrk[35] && xyz >= cirBrk[36])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[36];//5000;
+
+		else if (xyz > cirBrk[36] && xyz >= cirBrk[37])
+			document.getElementById("fdCkBr").innerHTML = cirBrk[37];//6000;
+
+		else {
+			document.getElementById(id="fdCkBr").innerHTML = cirBrk[0]; //15
+			
+			//brCircuit = Number(document.getElementById(id="branchCircuit").value).toFixed(0);
+			//return Number(document.getElementById(id="branchCircuit").value).toFixed(0);
+
+		} //end of if, else if, else loop
+	
+	 }
+	 
+	innerTest();	
+}	
+fullLoadCurrent();
+
+
+
+
+
