@@ -1,29 +1,29 @@
 function branchLoadCurrent() {
-	
-	let inFlc = document.getElementById("txt1").value;
+
+	let inFlc = document.getElementById("flc_motor_I").value;
 	let overLoadRating = document.getElementById("selectOverLoad").value;
 	let overCurrentRating = document.getElementById("selectOverCurrent").value;
 	let bDevSize = Number(inFlc).toFixed(2) * [Number(overCurrentRating).toFixed(2)]/100;
 	let brCirConSize = Number(inFlc).toFixed(2) * 1.25;
-	
+
 	let cirBrk = [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 90, 100, 110, 125, 150, 175,
-              200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800, 1000, 1200, 1600, 2000, 
+              200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800, 1000, 1200, 1600, 2000,
               2500, 3000, 4000, 5000, 6000];
-	
+
 	function innerTest() {
 	//inFlc = document.getElementById("txt1").value;
-	//inFlc = Number(inFlc).toFixed(2);	
-	document.getElementById("txt1").value = Number(inFlc).toFixed(2);	
+	//inFlc = Number(inFlc).toFixed(2);
+	document.getElementById("flc_motor_I").value = Number(inFlc).toFixed(2);
 	document.getElementById("flc_entered").innerHTML = Number(inFlc).toFixed(2);
 	document.getElementById("ovrldpr").innerHTML = Number(inFlc).toFixed(2) * [Number(overLoadRating).toFixed(2)]/100;
 	document.getElementById("brOvDe").innerHTML = bDevSize;
 	document.getElementById("brCoSz").innerHTML = brCirConSize;
-	
+
 	//document.getElementById("brOvDe").innerHTML = Number(bDevSize).toFixed(2);
-	
+
 	if (bDevSize > cirBrk[0] && bDevSize <= cirBrk[1])
 		document.getElementById("branchCircuit").innerHTML = cirBrk[1]; //20;
-		
+
 		else if (bDevSize > cirBrk[1] && bDevSize <= cirBrk[2])
 			document.getElementById("branchCircuit").innerHTML = cirBrk[2];//25;
 
@@ -134,28 +134,28 @@ function branchLoadCurrent() {
 
 		else {
 			document.getElementById(id="branchCircuit").innerHTML = cirBrk[0];
-	
+
 		}
-		
-			
+
+
 	 }
-	 
+
 	innerTest();
-	
+
 	let z = "Oh no, a bug!";
 	document.getElementById("brMotori").innerHTML = z;
-	
-}	
+
+}
 branchLoadCurrent();
 
 
-/*let overCurrentRating = document.getElementById("selectOverCurrent").value; 
+/*let overCurrentRating = document.getElementById("selectOverCurrent").value;
 	//document.getElementById("lbl18").innerHTML = "Pick percentage of motor type per Table 430.52!";
 	let input = Number(document.getElementById("txt1").value).toFixed(2);
 	let bDevSize = input * overCurrentRating;
 	let bDevSize = bDevSize/100;
 	let bDevSize = Number(bDevSize).toFixed(2)
 	let document.getElementById("brOvDe").innerHTML = bDevSize;
-	
+
 	let z = document.getElementById("brOvDe").value;
     let document.getElementById("test").innerHTML = z;*/

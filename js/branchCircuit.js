@@ -9,7 +9,7 @@ branchCircuitProtection.innerHTML =
 
 					<tr>
 					<td><label class="input">Input flc: </label></td>
-					<td><input type="text" id="txt1" class ="stepI" placeholder="enter flc" value="" maxlength="5" size="4"></td>
+					<td><input type="text" id="flc_motor_I" class ="stepI" placeholder="enter flc" value="" maxlength="5" size="4"></td>
 
 					<td><label class="input"> Select motor overload rating percentage: </label></td>
 					<td>
@@ -33,7 +33,7 @@ branchCircuitProtection.innerHTML =
 								<option value="800">800</option>
 								<option value="1100">1100</option>
 							</select>
-							
+
 						<label class="input">%</label></li></td>
 					</tr>
 
